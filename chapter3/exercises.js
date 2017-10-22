@@ -60,18 +60,10 @@ let isEven = number => {
     console.log(countChar("kakkerlak", "k"));
     // → 4
 ================================================================================================ */
-let countChar = (word, char) => {
-
-    let result = 0;
-
-    let checkLetter = (word, char, pos) => {        
-        if ( pos < 0 ) return;
-        if ( word.charAt(pos) == char ) result++;
-        checkLetter(word, char, pos - 1);
-    }
-
-    checkLetter(word, char, word.length-1);
-    return result;
+let checkLetter = (word, char, pos) => {        
+    if ( pos < 0 ) return 0;
+    return ( word.charAt(pos) == char ? 1 : 0 ) + checkLetter(word, char, pos - 1);
 }
 
+let countChar = (word, char) => checkLetter(word, char, word.length-1);
 let countBs = word => countChar(word, 'B');

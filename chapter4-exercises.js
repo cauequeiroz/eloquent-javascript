@@ -58,9 +58,4 @@ let reverseArray = list => {
     return newList;
 }
 
-let reverseArrayInPlace = list => {
-    let reversed = reverseArray(list);
-
-    for ( let i=0; i<list.length; i++ )
-        list[i] = reversed[i];
-};
+let reverseArrayInPlace = list => reverseArray(list).forEach((item, i) => list[i] = item);

@@ -59,10 +59,8 @@ let reverseArray = list => {
 }
 
 let reverseArrayInPlace = list => {
-    list = reverseArray(list);
-    console.log(list);
-};
+    let reversed = reverseArray(list);
 
-var arrayValue = [1, 2, 3, 4, 5];
-reverseArrayInPlace(arrayValue);
-console.log(arrayValue);
+    for ( let i=0; i<list.length; i++ )
+        list[i] = reversed[i];
+};

@@ -8,7 +8,7 @@
 ========================================================================= */
 
 const filter = (list, condition) => list.reduce((arr, item) => {
-  return condition(item) ? arr.concat(item) : arr;
+  return condition(item) ? [...arr, item] : arr;
 }, []);
 
 const map = (list, transform) => list.reduce((arr, item) => {
@@ -16,7 +16,7 @@ const map = (list, transform) => list.reduce((arr, item) => {
 }, []);
 
 const reject = (list, condition) => list.reduce((arr, item) => {
-  return condition(item) ? arr : arr.concat(item);
+  return condition(item) ? arr : [...arr, item];
 }, []);
 
 

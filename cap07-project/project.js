@@ -149,7 +149,7 @@ function runRobot(state, robot, memory) {
   for (let turn = 0;; turn++) {
     if (state.parcels.length == 0) {
       console.log(`Done in ${turn} turns`);
-      break;
+      return turn;
     }
 
     let action = robot(state, memory);
@@ -160,4 +160,26 @@ function runRobot(state, robot, memory) {
   }
 }
 
-runRobot(VillageState.random(), goalOrientedRobot, []);
+// runRobot(VillageState.random(), goalOrientedRobot, []);
+
+
+/*  Exercise 01
+---------------------------------------------------------------- */
+
+const average = list => list.reduce((total, n) => total += n) / list.length;
+
+const compareRobots = (robot1, memory1, robot2, memory2) => {
+  let robotOneResults = [];
+  let robotTwoResults = [];
+  let state;
+
+  for (let i = 0; i < 1000; i++) {
+    state = VillageState.random();
+    robotOneResults.push(runRobot(state, robot1, memory1)),
+    robotTwoResults.push(runRobot(state, robot2, memory2))
+  }
+
+  console.log(`[route] ${average(robotOneResults)}, [goalOriented] ${average(robotTwoResults)}`); 
+}; 
+
+compareRobots(routeRobot, [], goalOrientedRobot, []);

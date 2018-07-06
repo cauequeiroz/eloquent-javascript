@@ -16,17 +16,18 @@ function randomPick(array) {
 }
 
 function findRoute(graph, from, to) {
-  let work = [
+  let history = [
     { at: from, route: [] }
   ];
 
-  for (let i = 0; i < work.length; i++) {
-    let { at, route } = work[i];
+  for (let i = 0; i < history.length; i++) {
+    let { at, route } = history[i];
 
-    for (let place of graph[at]) {
-      if (place == to) return route.concat(place);
-      if (!work.some(w => w.at == place)) {
-        work.push({ at: place, route: route.concat(place) });
+    for (let connection of graph[at]) {
+      if (connection == to) return route.concat(connection);
+
+      if (!history.some(w => w.at == connection)) {
+        history.push({ at: connection, route: route.concat(connection) });
       }
     }
   }
@@ -73,6 +74,7 @@ function buildGraph(edges) {
 }
 
 const roadGraph = buildGraph(roads);
+console.log(roadGraph);
 
 
 /* Software State

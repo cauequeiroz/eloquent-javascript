@@ -11,7 +11,7 @@ Exercises and annotations from Eloquent Javascript book.
 - [x] Data Structures: Objects and Arrays
 - [x] Higher-order Functions
 - [x] The Secret Life of Objects
-- [ ] Project: A Robot
+- [x] Project: A Robot
 - [ ] Bugs and Errors
 - [ ] Regular Expressions
 - [ ] Modules

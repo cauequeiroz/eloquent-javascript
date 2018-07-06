@@ -173,7 +173,7 @@ const compareRobots = (robot1, memory1, robot2, memory2) => {
   let robotTwoResults = [];
   let state;
 
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 100; i++) {
     state = VillageState.random();
     robotOneResults.push(runRobot(state, robot1, memory1)),
     robotTwoResults.push(runRobot(state, robot2, memory2))
@@ -182,4 +182,34 @@ const compareRobots = (robot1, memory1, robot2, memory2) => {
   console.log(`[route] ${average(robotOneResults)}, [goalOriented] ${average(robotTwoResults)}`); 
 }; 
 
-compareRobots(routeRobot, [], goalOrientedRobot, []);
+/*  Exercise 02
+---------------------------------------------------------------- */
+
+const myRobot = ({ place, parcels }, route) => {
+  if (route.length == 0) {
+    
+    let routesToPickup = []; 
+    let routesToDeliver = [];
+
+    for (let parcel of parcels) {
+      if (parcel.place === place) {
+        routesToDeliver.push(findRoute(roadGraph, place, parcel.address));
+      } else {
+        routesToPickup.push(findRoute(roadGraph, place, parcel.place))
+      }
+    }
+
+    let routeToPickup = routesToPickup.sort((a, b) => a.length < b.length)[0] || new Array(20);
+    let routeToDeliver = routesToDeliver.sort((a, b) => a.length < b.length)[0] || new Array(20);
+
+    if (routeToPickup.length > routeToDeliver.length) {
+      route = routeToDeliver;
+    } else {
+      route = routeToPickup;
+    }
+  }
+
+  return { direction: route[0], memory: route.slice(1) };
+};
+
+compareRobots(myRobot, [], goalOrientedRobot, []);

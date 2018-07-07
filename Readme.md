@@ -12,7 +12,7 @@ Exercises and annotations from Eloquent Javascript book.
 - [x] Higher-order Functions
 - [x] The Secret Life of Objects
 - [x] Project: A Robot
-- [ ] Bugs and Errors
+- [x] Bugs and Errors
 - [ ] Regular Expressions
 - [ ] Modules
 - [ ] Asynchronous Programming

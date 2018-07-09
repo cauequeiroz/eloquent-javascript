@@ -13,7 +13,7 @@ Exercises and annotations from Eloquent Javascript book.
 - [x] The Secret Life of Objects
 - [x] Project: A Robot
 - [x] Bugs and Errors
-- [ ] Regular Expressions
+- [x] Regular Expressions
 - [ ] Modules
 - [ ] Asynchronous Programming
 - [ ] Project: A Programming Language

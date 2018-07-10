@@ -14,7 +14,7 @@ Exercises and annotations from Eloquent Javascript book.
 - [x] Project: A Robot
 - [x] Bugs and Errors
 - [x] Regular Expressions
-- [ ] Modules
+- [x] Modules
 - [ ] Asynchronous Programming
 - [ ] Project: A Programming Language
 - [ ] JavaScript and the Browser

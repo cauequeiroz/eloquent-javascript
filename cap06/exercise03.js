@@ -22,25 +22,11 @@ class Group {
   }
 }
  
-Group.prototype[Symbol.iterator] = function() {
-  return new GroupIterator(this);
+Group.prototype[Symbol.iterator] = function*() {
+  for (let i = 0; i < this.elements.length; i++) {
+    yield this.elements[i];
+  }
 };
-
-class GroupIterator {
-  constructor(group) {
-    this.index = 0;
-    this.elements = group.elements;
-  }
-
-  next() {
-    if (this.index > this.elements.length - 1)
-      return { done: true };
-
-    let value = this.elements[this.index++];
-    return { value, done: false };
-  }
-}
-
 
 for (let value of Group.from(["a", "b", "c"])) {
   console.log(value);

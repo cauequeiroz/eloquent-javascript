@@ -143,6 +143,11 @@ function findInRemoteStorage(nest, name) {
   next();
 }
 
+function anyStorage(nest, source, name) {
+  if (source == nest.name) return storage(nest, name);
+  else return routeRequest(nest, source, 'storage', name);
+}
+
 function availableNeighbors(nest) {
   let requests = nest.neighbors.map(neighbor => {
     return request(nest, neighbor, "ping")
@@ -188,3 +193,15 @@ function findRoute(from, to, connections) {
   return null;
 }
 
+async function chicks(nest, year) {
+  let lines = network(nest).map(async name => {
+    return name + ":" + await anyStorage(nest, name, `chicks in ${year}`);
+  });
+  return (await Promise.all(lines)).join("\n");
+}
+
+setTimeout(() => {
+
+  chicks(bigOak, 2017).then(console.log);
+
+}, 500)

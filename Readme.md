@@ -15,7 +15,7 @@ Exercises and annotations from Eloquent Javascript book.
 - [x] Bugs and Errors
 - [x] Regular Expressions
 - [x] Modules
-- [ ] Asynchronous Programming
+- [x] Asynchronous Programming
 - [ ] Project: A Programming Language
 - [ ] JavaScript and the Browser
 - [ ] The Document Object Model

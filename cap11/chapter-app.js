@@ -200,8 +200,30 @@ async function chicks(nest, year) {
   return (await Promise.all(lines)).join("\n");
 }
 
+async function locateScalpel(nest) {
+  let name = nest.name;
+  let local;
+  
+  do {
+    local = await anyStorage(nest, name, "scalpel");
+    if (local == name) return local;
+    name = local;
+  } while (true)
+}
+
+function locateScalpel2(nest) {
+  function next(name) {    
+    return anyStorage(nest, name, "scalpel").then(value => {
+      return value == name ? value : next(value);
+    });
+  }
+
+  return next(nest.name);
+}
+
 setTimeout(() => {
 
-  chicks(bigOak, 2017).then(console.log);
+  locateScalpel(bigOak).then(console.log);
+  locateScalpel2(bigOak).then(console.log);
 
 }, 500)

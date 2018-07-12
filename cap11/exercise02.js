@@ -28,10 +28,7 @@ function Promise_all(promises) {
     } else {
       promises.forEach((promise, index) => promise.then(value => {
         result[index] = value;
-
-        if (counter > 0) {
-          counter--;
-        } 
+        counter--;
 
         if (counter == 0) resolve(result)
       }, reject));

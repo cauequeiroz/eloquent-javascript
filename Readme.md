@@ -16,7 +16,7 @@ Exercises and annotations from Eloquent Javascript book.
 - [x] Regular Expressions
 - [x] Modules
 - [x] Asynchronous Programming
-- [ ] Project: A Programming Language
+- [x] Project: A Programming Language
 - [ ] JavaScript and the Browser
 - [ ] The Document Object Model
 - [ ] Handling Events

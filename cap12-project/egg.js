@@ -106,6 +106,26 @@ specialForms.define = (args, scope) => {
   return value;
 };
 
+specialForms.set = (args, scope) => {
+  if (args.length != 2 || args[0].type != "word") {
+    throw new SyntaxError("Incorrect use of set");
+  }
+
+  let value = evaluate(args[1], scope);
+  
+  if (Object.prototype.hasOwnProperty.call(scope, args[0].name)) {
+    scope[args[0].name] = value;
+  
+  } else if (Object.prototype.hasOwnProperty.call(Object.getPrototypeOf(scope), args[0].name)) {
+    Object.getPrototypeOf(scope)[args[0].name] = value;
+  
+  } else {
+    throw new ReferenceError("Binding not found.");
+  }
+
+  return value;
+};
+
 specialForms.fun = (args, scope) => {
   if (!args.length) {
     throw new SyntaxError("FUnctions need a body");
@@ -132,6 +152,8 @@ specialForms.fun = (args, scope) => {
     return evaluate(body, localScope);
   }
 };
+
+
 
 const topScope = Object.create(null);
 
@@ -192,5 +214,11 @@ function run(program) {
   return evaluate(parse(program), Object.create(topScope));
 }
 
-console.log(parse("# hello\nx"));
-console.log(parse("a # one\n   # two\n()"));
+run(`
+do(define(x, 4),
+   define(setx, fun(val, set(x, val))),
+   setx(50),
+   print(x))
+`);
+
+run(`set(quux, true)`);

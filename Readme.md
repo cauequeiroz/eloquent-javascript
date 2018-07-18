@@ -17,7 +17,7 @@ Exercises and annotations from Eloquent Javascript book.
 - [x] Modules
 - [x] Asynchronous Programming
 - [x] Project: A Programming Language
-- [ ] JavaScript and the Browser
+- [x] JavaScript and the Browser
 - [ ] The Document Object Model
 - [ ] Handling Events
 - [ ] Project: A Platform Game

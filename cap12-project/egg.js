@@ -1,7 +1,13 @@
 function skipSpace(string) {
+  string = removeComments(string);
+
   let first = string.search(/\S/);
   if (first == -1) return "";
   return string.slice(first);
+}
+
+function removeComments(string) {
+  return string.replace(/#.*/g, '');
 }
 
 function parseExpression(program) {
@@ -186,13 +192,5 @@ function run(program) {
   return evaluate(parse(program), Object.create(topScope));
 }
 
-run(`
-do(define(sum, fun(array,
-     do(define(i, 0),
-        define(sum, 0),
-        while(<(i, length(array)),
-          do(define(sum, +(sum, element(array, i))),
-             define(i, +(i, 1)))),
-        sum))),
-   print(sum(array(1, 2, 3))))
-`);
+console.log(parse("# hello\nx"));
+console.log(parse("a # one\n   # two\n()"));

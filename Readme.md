@@ -20,7 +20,7 @@ Exercises and annotations from Eloquent Javascript book.
 - [x] JavaScript and the Browser
 - [x] The Document Object Model
 - [x] Handling Events
-- [ ] Project: A Platform Game
+- [x] Project: A Platform Game
 - [ ] Drawing on Canvas
 - [ ] HTTP and Forms
 - [ ] Project: A Pixel Art Editor

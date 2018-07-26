@@ -119,16 +119,22 @@ function trackKeys(keys) {
     if (keys.includes(event.key)) {
       down[event.key] = event.type == "keydown";
       event.preventDefault();
+      console.log('Button pressed!');
     }
   }
 
   window.addEventListener("keydown", track);
   window.addEventListener("keyup", track);
 
+  down.untrack = function() {
+    window.removeEventListener("keydown", track);
+    window.removeEventListener("keyup", track);
+  };
+
   return down;
 }
 
-const arrowKeys = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp"]);
+const arrowKeys = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp", "Escape"]);
 
 /*  Actors
 --------------------------------------------- */
@@ -379,13 +385,16 @@ function drawActors(actors) {
 
 function runAnimation(frameFunc) {
   let lastTime = null;
-  
+
   function frame(time) {
     if (lastTime != null) {
       let timeStep = Math.min(time - lastTime, 100) / 1000;
-      if (frameFunc(timeStep) == false) return;
+      if (!arrowKeys.Escape) {
+        if (frameFunc(timeStep) == false) return;
+      }
     }
     lastTime = time;
+    
     requestAnimationFrame(frame);
   }
 
@@ -398,6 +407,8 @@ function runLevel(level, Display) {
   let ending = 1;
 
   return new Promise(resolve => {
+
+
     runAnimation(time => {
       state = state.update(time, arrowKeys);
       display.syncState(state);
@@ -421,7 +432,7 @@ function runLevel(level, Display) {
 async function runGame(plans, Display) {
   let lives = 3;
 
-  for (let level = 0; level < plans.length; ) {
+  for (let level = 0; level < 1; ) {
     console.log(`[Server] Level ${level + 1} - Lives: ${lives}.`);
 
     let status = await runLevel(new Level(plans[level]), Display);
@@ -434,7 +445,7 @@ async function runGame(plans, Display) {
       lives = 3;
     }
   }
-
+  arrowKeys.untrack();
   console.log("You've won!");
 }
 

@@ -19,7 +19,7 @@ Exercises and annotations from Eloquent Javascript book.
 - [x] Project: A Programming Language
 - [x] JavaScript and the Browser
 - [x] The Document Object Model
-- [ ] Handling Events
+- [x] Handling Events
 - [ ] Project: A Platform Game
 - [ ] Drawing on Canvas
 - [ ] HTTP and Forms

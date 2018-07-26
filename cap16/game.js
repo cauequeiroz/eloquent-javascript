@@ -119,7 +119,6 @@ function trackKeys(keys) {
     if (keys.includes(event.key)) {
       down[event.key] = event.type == "keydown";
       event.preventDefault();
-      console.log('Button pressed!');
     }
   }
 
@@ -282,6 +281,43 @@ Coin.prototype.update = function(time) {
   return new Coin(this.basePos.plus(new Vec(0, wobblePos)), this.basePos, wobble);
 };
 
+class Monster {
+  constructor(pos, speed) {
+    this.pos = pos;
+    this.speed = speed;
+  }
+
+  get type() { return "monster"; }
+
+  static create(pos) {
+    return new Monster(pos.plus(new Vec(0, -1)), new Vec(4, 0));
+  }
+
+  update(time, state) {
+    let newPos = this.pos.plus(this.speed.times(time));
+
+    if (!state.level.touches(newPos, this.size, "wall")) {
+      return new Monster(newPos, this.speed);
+    
+    } else {
+      return new Monster(this.pos, this.speed.times(-1));
+    }
+  }
+
+  collide(state) {
+    let player = state.actors.filter(a => a.type == 'player')[0];
+    
+    if (Math.floor(player.pos.y) == this.pos.y - this.size.y) {
+      let filtered = state.actors.filter(a => a != this);
+      return new State(state.level, filtered, state.status);
+    } else {
+      return new State(state.level, state.actors, "lost");
+    }
+    
+  }
+}
+Monster.prototype.size = new Vec(1.2, 2);
+
 const levelChars = {
   ".": "empty",
   "#": "wall",
@@ -290,7 +326,8 @@ const levelChars = {
   "o": Coin,
   "=": Lava,
   "|": Lava,
-  "v": Lava
+  "v": Lava,
+  "M": Monster
 };
 
 
@@ -432,7 +469,7 @@ function runLevel(level, Display) {
 async function runGame(plans, Display) {
   let lives = 3;
 
-  for (let level = 0; level < 1; ) {
+  for (let level = 0; level < plans.length; ) {
     console.log(`[Server] Level ${level + 1} - Lives: ${lives}.`);
 
     let status = await runLevel(new Level(plans[level]), Display);
@@ -449,4 +486,20 @@ async function runGame(plans, Display) {
   console.log("You've won!");
 }
 
-runGame(GAME_LEVELS, DOMDisplay);
+// runGame(GAME_LEVELS, DOMDisplay);
+
+runLevel(new Level(`
+..................................
+.################################.
+.#..............................#.
+.#..............................#.
+.#..............................#.
+.#...........................o..#.
+.#..@...........................#.
+.##########..............########.
+..........#..o..o..o..o..#........
+..........#...........M..#........
+..........################........
+..................................
+`), DOMDisplay);
+

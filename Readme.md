@@ -21,7 +21,7 @@ Exercises and annotations from Eloquent Javascript book.
 - [x] The Document Object Model
 - [x] Handling Events
 - [x] Project: A Platform Game
-- [ ] Drawing on Canvas
+- [x] Drawing on Canvas
 - [ ] HTTP and Forms
 - [ ] Project: A Pixel Art Editor
 - [ ] Node.js

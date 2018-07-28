@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercise 01 - A Bouncing Ball</title>
+  <style>
+    canvas {
+      border: 2px solid #ccc;
+      margin: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas width="400" height="400"></canvas>
+  <script>
+    let canvas = document.querySelector('canvas');
+    let cx = canvas.getContext("2d");
+  
+    function runAnimation(updateAnimation) {
+      let lastTime = null;
+      function frame(time) {
+        if (lastTime != null) {
+          updateAnimation(Math.min(100, time - lastTime) / 1000);
+        }
+        lastTime = time;
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    let pos = { x: 20, y: 20 };
+    let speed = { x: 4, y: 6 };
+    let margin = 20;
+    
+    function drawBall(x, y) {
+      cx.clearRect(0, 0, canvas.width, canvas.height);
+
+      cx.fillStyle = 'red';
+
+      cx.beginPath();
+      cx.arc(x, y, 20, 0, 2 * Math.PI);
+      cx.fill();
+    }   
+  
+    function update(step) {
+      if (pos.y + margin > canvas.height || pos.y + margin < 40) {
+        speed.y *= -1;
+      }
+
+      if (pos.x + margin > canvas.width || pos.x + margin < 40) {
+        speed.x *= -1;
+      }
+
+      pos.x += speed.x;
+      pos.y += speed.y;
+
+      drawBall(pos.x, pos.y);
+    }
+
+    runAnimation(update);
+  </script>
+  
+</body>
+</html>

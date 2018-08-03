@@ -22,7 +22,7 @@ Exercises and annotations from Eloquent Javascript book.
 - [x] Handling Events
 - [x] Project: A Platform Game
 - [x] Drawing on Canvas
-- [ ] HTTP and Forms
+- [x] HTTP and Forms
 - [ ] Project: A Pixel Art Editor
 - [ ] Node.js
 - [ ] Project: Skill-Sharing Website

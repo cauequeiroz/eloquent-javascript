@@ -32,7 +32,11 @@
 let state;
 
 const view = document.querySelector('#grid');
-document.querySelector('#next').addEventListener('click', nextGeneration);
+const next = document.querySelector('#next');
+
+view.addEventListener('click', updateState);
+next.addEventListener('click', nextGeneration);
+
 
 
 /*  Grid
@@ -64,12 +68,23 @@ function updateView(state) {
       
       col.type = 'checkbox';
       col.checked = state[y][x] == 'X';
+      col.setAttribute('position-x-y', `${x}-${y}`);
 
       view.appendChild(col);
     }
 
     let breakLine = document.createElement('br');
     view.appendChild(breakLine);
+  }
+}
+
+function updateState(event) {
+  if (event.target.nodeName == 'INPUT') {
+    let x = Number(event.target.getAttribute('position-x-y').split('-')[0]);
+    let y = Number(event.target.getAttribute('position-x-y').split('-')[1]);
+    let live = event.target.checked;
+
+    state[y][x] = live ? 'X' : '-';
   }
 }
 
